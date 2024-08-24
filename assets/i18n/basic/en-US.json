@@ -1,5 +1,7 @@
 {
   "NAV": {
+    "MAIN": "About",
+    "PROJECTS": "Projects",
     "INDEX": "Blog",
     "RSS": "RSS",
     "SEARCH": "Search",
