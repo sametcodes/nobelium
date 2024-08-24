@@ -1,32 +1,25 @@
-import { clientConfig } from "@/lib/server/config";
+import { getIntroduction } from "@/lib/notion";
+import { useConfig } from "@/lib/config";
+import { useRouter } from "next/router";
 
 import Container from "@/components/Container";
-import BlogProject from "@/components/BlogProject";
 import Introduction from "@/components/Introduction";
-import Pagination from "@/components/Pagination";
-import { getAllProjects, getIntroduction } from "@/lib/notion";
-import { useConfig } from "@/lib/config";
 
 export async function getStaticProps() {
   const introduction = await getIntroduction();
-
-  const projects = await getAllProjects();
-  const projectsToShow = projects.slice(0, clientConfig.projectsPerPage);
-  const totalProjects = projects.length;
-  const showNext = totalProjects > clientConfig.projectsPerPage;
   return {
     props: {
-      page: 1, // current page is 1
-      projectsToShow,
-      showNext,
-      introduction,
+      introduction
     },
-    revalidate: 1,
+    revalidate: 1
   };
 }
 
-export default function Blog({ projectsToShow, introduction, page, showNext }) {
+export default function Blog({ introduction }) {
+  const router = useRouter();
   const { title, description } = useConfig();
+
+  if (router.isFallback) return null;
 
   return (
     <Container title={title} description={description}>

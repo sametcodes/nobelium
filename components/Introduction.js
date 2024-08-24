@@ -1,7 +1,5 @@
 import FormattedDate from "@/components/FormattedDate";
 import { useConfig } from "@/lib/config";
-import Image from "next/image";
-import Link from "next/link";
 import Post from "./Post";
 
 const Introduction = ({ meta, document }) => {
@@ -10,6 +8,7 @@ const Introduction = ({ meta, document }) => {
   return (
     <article key={meta.id} className="mb-6 md:mb-8">
       <Post
+        emailHash={BLOG.emailHash}
         post={meta}
         blockMap={document}
         showTableOfContents={false}
